@@ -1,7 +1,9 @@
+{% load engine_dashboard_tags %}
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
 <body>
-
+    <a href="/admin">< return to dashboard</a>
     <div class="container-fluid mt-5">
         <h1 style="text-transform: capitalize;">Engine</h1>
     </div>
@@ -23,10 +25,15 @@
             {% include "engine/parts/legal.html" %}
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-</body>
 
+    <div id="diagnostics_report" style="display:none!important;">
+        <textarea id="diagnostics_report-val" rows="4">{% diagnostics_report %}</textarea><br/>
+    </div>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</body>
 
 <style>
 .button-longrunning {
@@ -41,3 +48,29 @@
     display: none;
 }
 </style>
+
+<script>
+document.title = "About Engine";
+
+function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+// Start file download.
+document.getElementById("download_diagnostics_report").addEventListener("click", function(){
+    // Generate download of hello.txt file with some content
+    var text = document.getElementById("diagnostics_report-val").value;
+    var filename = "diagnostics-report.engine";
+    
+    download(filename, text);
+}, false);
+</script>
