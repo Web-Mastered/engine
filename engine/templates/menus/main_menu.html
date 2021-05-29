@@ -1,0 +1,17 @@
+{% load menu_tags %}
+
+<nav class="heading-nav navbar navbar-expand-lg py-5">
+    <div class="container-fluid m-0 p-0">
+        <a class="navbar-brand" href="#">Engine</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto">
+                {% for item in menu_items %}
+                    <a class="nav-link {{ item.active_class }}" href="{{ item.href }}">{{ item.text }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</nav>

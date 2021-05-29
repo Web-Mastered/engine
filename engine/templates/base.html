@@ -1,4 +1,5 @@
 {% load static wagtailuserbar %}
+{% load menu_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -32,22 +33,8 @@
         <div class="container-fluid">
             <div class="heading-container row justify-content-center bg-gradient">
                 <div class="col-11 col-sm-9">
-                    <nav class="heading-nav navbar navbar-expand-lg py-5">
-                        <div class="container-fluid m-0 p-0">
-                            <a class="navbar-brand" href="#">Engine</a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                                <div class="navbar-nav ms-auto">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                                    <a class="nav-link" href="#">Features</a>
-                                    <a class="nav-link" href="#">Pricing</a>
-                                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                                </div>
-                            </div>
-                        </div>
-                    </nav>
+                    {% comment %} Menu goes here {% endcomment %}
+                    {% main_menu max_levels=3 template="menus/main_menu.html" %}
                     {% block heading %}{% endblock %}
                 </div>
             </div>
