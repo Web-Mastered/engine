@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'blocks',
     'flex',
 
+    'wagtailmenus',
+
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings', 
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wagtail.contrib.modeladmin',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +84,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'wagtailmenus.context_processors.wagtailmenus',
             ],
         },
     },
@@ -164,3 +168,7 @@ WAGTAIL_SITE_NAME = "engine"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+# This is added to prevent "Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'."
+# warnings with wagtailmenus
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
