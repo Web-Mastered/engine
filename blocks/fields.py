@@ -21,8 +21,8 @@ class HeadingTitleBlock(blocks.RichTextBlock):
         ]
 
     class Meta:
-        template = "streams/heading_title_block.html"
-        icon = "fa-header"
+        template = "streams/heading/heading_title_block.html"
+        icon = "title"
         label = "Title"
 
 class HeadingSubtitleBlock(blocks.RichTextBlock):
@@ -40,8 +40,8 @@ class HeadingSubtitleBlock(blocks.RichTextBlock):
         ]
 
     class Meta:
-        template = "streams/heading_subtitle_block.html"
-        icon = "fa-header"
+        template = "streams/heading/heading_subtitle_block.html"
+        icon = "title"
         label = "Subtitle"
 
 class HeadingVariableBlock(blocks.RichTextBlock):
@@ -64,11 +64,11 @@ class HeadingVariableBlock(blocks.RichTextBlock):
         ]
 
     class Meta:
-        template = "streams/heading_title_block.html"
-        icon = "fa-header"
+        template = "streams/heading/heading_title_block.html"
+        icon = "title"
         label = "Title"
 
-class WideImageBlock(blocks.StructBlock):
+class HeadingFeaturedImageBlock(blocks.StructBlock):
     """Images which take up the entire width of its parent"""
 
     align_options = (
@@ -77,13 +77,77 @@ class WideImageBlock(blocks.StructBlock):
         ("text-end", "Right"),
     )
 
-    image = ImageChooserBlock(required=True, help_text="Add an image.")
+    image = ImageChooserBlock(required=True, help_text="Add a featured image.")
     alt_text = blocks.CharBlock(required=False,help_text="Displays this alternate text if the image cannot be displayed.")
     caption = blocks.RichTextBlock(features=['bold','italic','link','superscript','subscript','strikethrough'],required=False, help_text="Add an image caption.")
     caption_align = blocks.ChoiceBlock(label='Align the caption text.',required=False, choices=align_options)
 
     class Meta:
-        template = "streams/wide_image_block.html"
+        template = "streams/heading/heading_featured_image_block.html"
+        icon = "image"
+        label = "Featured Image"
+
+class BodyTitleBlock(blocks.RichTextBlock):
+    """RichText title block"""
+
+    def __init__(self, required=True, help_text=None, editor="default", features=None, **kwargs):
+        super().__init__(**kwargs)
+        self.features = [
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+            "bold", 
+            "italic", 
+            "link",
+            "superscript",
+            "subscript",
+            "strikethrough",
+        ]
+
+    class Meta:
+        template = "streams/body/body_title_block.html"
+        icon = "title"
+        label = "Heading"
+
+class BodyParagraphBlock(blocks.RichTextBlock):
+    """RichText title block"""
+
+    def __init__(self, required=True, help_text=None, editor="default", features=None, **kwargs):
+        super().__init__(**kwargs)
+        self.features = [
+            "bold", "italic",
+            "ol", "ul", 
+            "hr",
+            "link", "document-link",
+            "image", "embed",
+            "code",
+            "superscript", "subscript", "strikethrough",
+            "blockquote"
+        ]
+
+    class Meta:
+        template = "streams/body/body_paragraph_block.html"
+        icon = "pilcrow"
+        label = "Paragraph"
+
+class BodyWideImageBlock(blocks.StructBlock):
+    """Images which take up the entire width of its parent"""
+
+    caption_align_options = (
+        ("text-start", "Left"),
+        ("text-center", "Centre"),
+        ("text-end", "Right"),
+    )
+
+    image = ImageChooserBlock(required=True, help_text="Add an image.")
+    alt_text = blocks.CharBlock(required=False,default="This is an image.",help_text="Displays this alternate text if the image cannot be displayed.")
+    caption = blocks.RichTextBlock(features=['bold','italic','link','superscript','subscript','strikethrough'],required=False, help_text="Add an image caption.")
+    caption_align = blocks.ChoiceBlock(label='Align the caption text.',required=False, choices=caption_align_options)
+
+    class Meta:
+        template = "streams/body/body_wide_image_block.html"
         icon = "image"
         label = "Wide Image"
 
@@ -91,17 +155,29 @@ page_heading_blocks = StreamField(
     [
         ("heading_title", HeadingTitleBlock()),
         ("heading_subtitle", HeadingSubtitleBlock()),
-        ("wide_image", WideImageBlock())
+        ("heading_featured_image", HeadingFeaturedImageBlock())
     ],
     null = True,
     blank = True,
     help_text = "Choose blocks to be shown at the top of the page."
 )
 
+page_body_blocks = StreamField(
+    [
+        ("body_title", BodyTitleBlock()),
+        ("body_paragraph", BodyParagraphBlock()),
+        ("body_wide_image", BodyWideImageBlock())
+    ],
+    null = True,
+    blank = True,
+    help_text = "Choose blocks to be shown in the body."
+)
+
 class HomePageFields(models.Model):
     """HomePage field definitions"""
 
     heading_blocks = page_heading_blocks
+    body_blocks = page_body_blocks
 
     content_panels = [
         MultiFieldPanel(
@@ -109,6 +185,13 @@ class HomePageFields(models.Model):
                 StreamFieldPanel("heading_blocks", classname=""),
             ],
             heading="Page Heading",
+            classname="collapsible",
+        ),
+        MultiFieldPanel(
+            [
+                StreamFieldPanel("body_blocks", classname=""),
+            ],
+            heading="Page Body",
             classname="collapsible",
         ),
     ]
@@ -121,6 +204,7 @@ class FlexPageFields(models.Model):
     """FlexPage field definitions"""
 
     heading_blocks = page_heading_blocks
+    body_blocks = page_body_blocks
 
     content_panels = [
         MultiFieldPanel(
@@ -128,6 +212,13 @@ class FlexPageFields(models.Model):
                 StreamFieldPanel("heading_blocks", classname=""),
             ],
             heading="Page Heading",
+            classname="collapsible",
+        ),
+        MultiFieldPanel(
+            [
+                StreamFieldPanel("body_blocks", classname=""),
+            ],
+            heading="Page Body",
             classname="collapsible",
         ),
     ]
