@@ -18,5 +18,6 @@ class HomePage(Page, HomePageFields):
     content_panels = Page.content_panels + HomePageFields.content_panels
 
     class Meta:
+        """ Meta HomePage """
         verbose_name = "Home Page"
         verbose_name_plural = "Home Pages"

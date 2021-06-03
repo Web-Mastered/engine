@@ -6,6 +6,10 @@ from wagtail.admin.edit_handlers import HelpPanel
 
 @register_setting(icon='help')
 class AboutEngine(BaseSetting):
+    """
+    This class displays a HelpPanel in a newly created settings tab "About Engine"
+    the HelpPanel displays various information regarding Engine.
+    """
     panels = [
         HelpPanel(
             template='engine/index.html',
@@ -13,4 +17,5 @@ class AboutEngine(BaseSetting):
     ]
 
     class Meta:
+        """ Meta AboutEngine """
         verbose_name = 'About Engine'

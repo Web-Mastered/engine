@@ -22,6 +22,7 @@ class HeadingTitleBlock(blocks.RichTextBlock):
         ]
 
     class Meta:
+        """ Meta HeadingTitleBlock """
         template = "streams/heading/heading_title_block.html"
         icon = "title"
         label = "Title"
@@ -41,6 +42,7 @@ class HeadingSubtitleBlock(blocks.RichTextBlock):
         ]
 
     class Meta:
+        """ Meta HeadingSubtitleBlock """
         template = "streams/heading/heading_subtitle_block.html"
         icon = "title"
         label = "Subtitle"
@@ -65,6 +67,7 @@ class HeadingVariableBlock(blocks.RichTextBlock):
         ]
 
     class Meta:
+        """ Meta HeadingVariableBlock """
         template = "streams/heading/heading_title_block.html"
         icon = "title"
         label = "Title"
@@ -84,6 +87,7 @@ class HeadingFeaturedImageBlock(blocks.StructBlock):
     caption_align = blocks.ChoiceBlock(label='Align the caption text.',required=False, choices=align_options)
 
     class Meta:
+        """ Meta HeadingFeaturedImageBlock """
         template = "streams/heading/heading_featured_image_block.html"
         icon = "image"
         label = "Featured Image"
@@ -108,6 +112,7 @@ class BodyTitleBlock(blocks.RichTextBlock):
         ]
 
     class Meta:
+        """ Meta BodyTitleBlock """
         template = "streams/body/body_title_block.html"
         icon = "title"
         label = "Heading"
@@ -129,6 +134,7 @@ class BodyParagraphBlock(blocks.RichTextBlock):
         ]
 
     class Meta:
+        """ Meta BodyParagraphBlock """
         template = "streams/body/body_paragraph_block.html"
         icon = "pilcrow"
         label = "Paragraph"
@@ -148,6 +154,7 @@ class BodyWideImageBlock(blocks.StructBlock):
     caption_align = blocks.ChoiceBlock(label='Align the caption text.',required=False, choices=caption_align_options)
 
     class Meta:
+        """ Meta BodyWideImageBlock """
         template = "streams/body/body_wide_image_block.html"
         icon = "image"
         label = "Wide Image"
@@ -167,6 +174,7 @@ class BodyImageAndTextBlock(blocks.StructBlock):
     alignment = blocks.ChoiceBlock(label='Align the image and text.',required=False, choices=align_options)
 
     class Meta:
+        """ Meta BodyImageAndTextBlock """
         template = "streams/body/body_image_text_block.html"
         icon = "image"
         label = "Image & Text"
@@ -218,6 +226,7 @@ class HomePageFields(models.Model):
     ]
 
     class Meta:
+        """ Meta HomePageFields """
         abstract = True
 
 
@@ -245,4 +254,5 @@ class FlexPageFields(models.Model):
     ]
 
     class Meta:
+        """ Meta FlexPageFields """
         abstract = True

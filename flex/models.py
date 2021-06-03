@@ -10,5 +10,6 @@ class FlexPage(Page, FlexPageFields):
     content_panels = Page.content_panels + FlexPageFields.content_panels
 
     class Meta:
+        """ Meta FlexPage """
         verbose_name = "Flex Page"
         verbose_name_plural = "Flex Pages"
