@@ -1,3 +1,4 @@
+from typing import Text
 from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, PageChooserPanel, MultiFieldPanel
@@ -114,8 +115,8 @@ class BodyTitleBlock(blocks.RichTextBlock):
 class BodyParagraphBlock(blocks.RichTextBlock):
     """RichText title block"""
 
-    def __init__(self, required=True, help_text=None, editor="default", features=None, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, **args):
+        super().__init__(**args)
         self.features = [
             "bold", "italic",
             "ol", "ul", 
@@ -151,6 +152,25 @@ class BodyWideImageBlock(blocks.StructBlock):
         icon = "image"
         label = "Wide Image"
 
+class BodyImageAndTextBlock(blocks.StructBlock):
+    """Images which take up the entire width of its parent"""
+
+    align_options = (
+        ("image-left", "Image - Text"),
+        ("image-right", "Text - Image"),
+    )
+
+    image = ImageChooserBlock(required=True, help_text="Add an image.")
+    alt_text = blocks.CharBlock(required=False,default="This is an image.",help_text="Displays this alternate text if the image cannot be displayed.")
+    caption = blocks.RichTextBlock(features=['bold','italic','link','superscript','subscript','strikethrough'],required=False, help_text="Add an image caption.")
+    text = BodyParagraphBlock(required=True,help_text="Add some text to display beside the image.")
+    alignment = blocks.ChoiceBlock(label='Align the image and text.',required=False, choices=align_options)
+
+    class Meta:
+        template = "streams/body/body_image_text_block.html"
+        icon = "image"
+        label = "Image & Text"
+
 page_heading_blocks = StreamField(
     [
         ("heading_title", HeadingTitleBlock()),
@@ -166,7 +186,8 @@ page_body_blocks = StreamField(
     [
         ("body_title", BodyTitleBlock()),
         ("body_paragraph", BodyParagraphBlock()),
-        ("body_wide_image", BodyWideImageBlock())
+        ("body_wide_image", BodyWideImageBlock()),
+        ("body_image_text", BodyImageAndTextBlock()),
     ],
     null = True,
     blank = True,
