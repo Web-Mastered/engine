@@ -6,6 +6,10 @@ from wagtail.search.models import Query
 
 
 def search(request):
+    """
+    Built-in Wagtail Search app
+    Not modified for Engine
+    """
     search_query = request.GET.get('query', None)
     page = request.GET.get('page', 1)
 
