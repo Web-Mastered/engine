@@ -1,5 +1,6 @@
 {% load static wagtailuserbar %}
 {% load menu_tags %}
+{% load engine_dashboard_tags %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -15,8 +16,10 @@
                 {% endwith %}
             {% endblock %}
         </title>
-        <meta name="description" content="" />
+        <meta name="description" content="{{ self.search_description }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Web Mastered Engine v{% get_engine_version %}" />
+        <meta name=”robots” content="index, follow">
 
         {# Global stylesheets #}
         <link rel="stylesheet" type="text/css" href="{% static 'css/engine.css' %}">
