@@ -13,7 +13,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 INSTALLED_APPS = INSTALLED_APPS + [
     'wagtail.contrib.styleguide',
+    'debug_toolbar',
 ]
+
+MIDDLEWARE = MIDDLEWARE + [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+
+INTERNAL_IPS = ('127.0.0.1')
 
 
 try:
