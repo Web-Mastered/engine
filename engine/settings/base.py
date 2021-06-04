@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
     'wagtailmenus',
     'compressor',
+    'wagtail_color_panel',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -163,6 +164,14 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+
+COMPRESS_OFFLINE = True
+LIBSASS_OUTPUT_STYLE = 'compressed'
+LIBSASS_SOURCEMAPS = True
+LIBSASS_PRECISION = 6
 
 # Wagtail settings
 

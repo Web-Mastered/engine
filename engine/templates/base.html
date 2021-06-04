@@ -2,6 +2,7 @@
 {% load menu_tags %}
 {% load engine_dashboard_tags %}
 {% load wagtailimages_tags %}
+{% load compress %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -30,8 +31,26 @@
         <meta name=”robots” content="index, follow">
 
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/engine.css' %}">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"> -->
+        {% compress css %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/engine.css' %}">
+            <style type="text/x-scss" media="screen">
+                $primary: {{ settings.dashboard.WebsiteSettings.primary }};
+                $secondary: {{ settings.dashboard.WebsiteSettings.secondary }};
+                $success: {{ settings.dashboard.WebsiteSettings.success }};
+                $info: {{ settings.dashboard.WebsiteSettings.info }};
+                $warning: {{ settings.dashboard.WebsiteSettings.warning }};
+                $danger: {{ settings.dashboard.WebsiteSettings.danger }};
+                $light: {{ settings.dashboard.WebsiteSettings.light }};
+                $dark: {{ settings.dashboard.WebsiteSettings.dark }};
+                @import "engine/static/scss/bootstrap/bootstrap.scss";
+            </style>
+            <!-- Adding an @import in the inline CSS is quite inefficient, but doing it this way allows
+                    for the Bootstrap theme colours to be overriden. Find a way and hange this so that bootstrap.scss 
+                    is called in a seperate <link> tag, like this:
+                        <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/bootstrap/bootstrap.scss' %}">
+            -->
+        {% endcompress %}
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
