@@ -5,6 +5,8 @@ certifi==2020.12.5
 cffi==1.14.5
 chardet==4.0.0
 Django==3.2.3
+django-cogwheels==0.3
+django-debug-toolbar==3.2.1
 django-filter==2.4.0
 django-modelcluster==5.1
 django-taggit==1.4.0
@@ -29,6 +31,7 @@ telepath==0.1.1
 typing-extensions==3.10.0.0
 urllib3==1.26.5
 wagtail==2.13.1
+wagtailmenus==3.0.2
 webencodings==0.5.1
 Willow==1.4
 xlrd==2.0.1
