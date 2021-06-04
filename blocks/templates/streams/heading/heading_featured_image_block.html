@@ -1,7 +1,7 @@
 {% load wagtailimages_tags %}
-<figure class="figure w-100 m-0 p-0">
+<figure class="figure w-100">
     {% image self.image format-jpeg width-1000 as img %}
-    <img src="{{ img.url }}" class="figure-img img-fluid w-100 m-0 p-0" alt="{{ alt_text }}">
+    <img src="{{ img.url }}" class="figure-img img-fluid w-100" alt="{{ alt_text }}">
     {% if self.caption %}
         <figcaption class="figure-caption {{ self.caption_align }} mt-2">{{ self.caption }}</figcaption>
     {% endif %}
