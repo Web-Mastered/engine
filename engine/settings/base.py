@@ -187,3 +187,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Disable Wagtail Update Checking
 WAGTAIL_ENABLE_UPDATE_CHECK = False
+
+WAGTAILMENUS_FLAT_MENUS_HANDLE_CHOICES = (
+    ('footer', 'Footer'),
+)

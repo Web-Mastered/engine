@@ -76,56 +76,16 @@
         </div>
 
         {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/engine.js' %}"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-        {% block extra_js %}
-            {# Override this in templates to add extra javascript #}
-        {% endblock %}
+        {% compress js %}
+            <script type="text/javascript" src="{% static 'js/engine.js' %}"></script>
+            {% block extra_js %}
+                {# Override this in templates to add extra javascript #}
+            {% endblock %}
+        {% endcompress %}
+        <footer class="footer mt-auto py-3 bg-light">
+            {% flat_menu 'footer' add_sub_menus_inline=True show_multiple_levels=False apply_active_classes=True template="menus/footer_menu.html" %}
+        </footer>
     </body>
 </html>
-
-<script>
-
-function darkMode() {
-    console.log('Currently in dark mode');
-    $( "body" ).removeClass( "bg-light text-dark" );
-    $( ".heading-container" ).removeClass( "bg-light text-dark" );
-    $( ".content-container" ).removeClass( "bg-light text-dark" );
-    $( ".heading-nav" ).removeClass( "navbar-light" );
-    $( "body" ).addClass( "bg-dark text-light" );
-    $( ".heading-container" ).addClass( "bg-dark text-light" );
-    $( ".content-container" ).addClass( "bg-dark text-light" );
-    $( ".heading-nav" ).addClass( "navbar-dark" );
-}
-
-function lightMode() {
-    console.log('Currently in light mode');
-    $( "body" ).removeClass( "bg-dark text-light" );
-    $( ".heading-container" ).removeClass( "bg-dark text-light" );
-    $( ".content-container" ).removeClass( "bg-dark text-light" );
-    $( ".heading-nav" ).removeClass( "navbar-dark" );
-    $( "body" ).addClass( "bg-light text-dark" );
-    $( ".heading-container" ).addClass( "bg-light text-dark" );
-    $( ".content-container" ).addClass( "bg-light text-dark" );
-    $( ".heading-nav" ).addClass( "navbar-light" );
-}
-
-// Handle dark/light mode changes when user enters website
-const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
-if (prefersDarkScheme.matches) {
-    darkMode();
-} else {
-    lightMode();
-}
-
-// Handle dark/light mode changes while user is on website
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-    if (event.matches) {
-        darkMode();
-  } else {
-        lightMode();
-    }
-});
-
-</script>
