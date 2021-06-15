@@ -84,8 +84,10 @@
                 {# Override this in templates to add extra javascript #}
             {% endblock %}
         {% endcompress %}
-        <footer class="footer mt-auto py-3 bg-light">
-            {% flat_menu 'footer' add_sub_menus_inline=True show_multiple_levels=False apply_active_classes=True template="menus/footer_menu.html" %}
+        <footer class="footer mt-auto pt-5 pb-5">
+            <div class="container-fluid">
+                {% flat_menu 'footer' add_sub_menus_inline=True show_multiple_levels=False apply_active_classes=True template="menus/footer_menu.html" %}
+            </div>
         </footer>
     </body>
 </html>
