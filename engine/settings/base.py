@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -190,4 +193,19 @@ WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 WAGTAILMENUS_FLAT_MENUS_HANDLE_CHOICES = (
     ('footer', 'Footer'),
+)
+
+
+sentry_sdk.init(
+    dsn="https://a375b63d66cc4c0f889d45da52d4c7a3@o866366.ingest.sentry.io/5823119",
+    integrations=[DjangoIntegration()],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
 )
