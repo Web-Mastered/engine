@@ -1,6 +1,6 @@
 from django.db import models
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.admin.edit_handlers import EditHandler, FieldRowPanel, HelpPanel, TabbedInterface, ObjectList
+from wagtail.admin.edit_handlers import EditHandler, FieldPanel, FieldRowPanel, HelpPanel, TabbedInterface, ObjectList
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail_color_panel.fields import ColorField
 from wagtail_color_panel.edit_handlers import NativeColorPanel
@@ -36,6 +36,14 @@ class WebsiteSettings(BaseSetting):
     light = ColorField(default="#f8f9fa", help_text="default is #f8f9fa")
     dark = ColorField(default="#212529", help_text="default is #212529")
 
+    tracking_id = models.CharField(
+        max_length=24,
+        help_text="Enter your Google Analytics Tracking ID here, it should look something like this: UA-000000-2",
+        null=True,
+        blank=True,
+        verbose_name="Tracking ID"
+    )
+
     look_and_feel_panels = [
         FieldRowPanel([
             ImageChooserPanel("logo"),
@@ -53,9 +61,15 @@ class WebsiteSettings(BaseSetting):
         ], heading="Colours"),
     ]
 
+    analytics_panels = [
+        FieldRowPanel([
+            FieldPanel("tracking_id"),
+        ], heading="Google Analytics"),
+    ]
+
     edit_handler = TabbedInterface([
         ObjectList(look_and_feel_panels, heading="Look & Feel"),
-        # ObjectList(look_and_feel_panels, heading="Another Tab"), # More tabs can be added like this...
+        ObjectList(analytics_panels, heading="Analytics"),
     ])
 
 

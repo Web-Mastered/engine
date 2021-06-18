@@ -7,6 +7,16 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     <head>
+        {% if settings.dashboard.WebsiteSettings.tracking_id %}
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.dashboard.WebsiteSettings.tracking_id }}"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '{{ settings.dashboard.WebsiteSettings.tracking_id }}');
+            </script>
+        {% endif %}
         <meta charset="utf-8" />
         <title>
             {% block title %}
