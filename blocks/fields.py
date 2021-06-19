@@ -1,11 +1,13 @@
-from typing import Text
 from django.db import models
+from django import forms
 
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, PageChooserPanel, MultiFieldPanel
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.edit_handlers import FieldPanel, HelpPanel, StreamFieldPanel, PageChooserPanel, MultiFieldPanel
+from wagtail.core.fields import RichTextField, StreamField, StreamBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.core import blocks
 from wagtail.images.blocks import ImageChooserBlock
+
+from modelcluster.fields import ParentalManyToManyField
 
 class HeadingTitleBlock(blocks.RichTextBlock):
     """RichText heading block"""
@@ -184,7 +186,11 @@ page_heading_blocks = StreamField(
         ("heading_title", HeadingTitleBlock()),
         ("heading_subtitle", HeadingSubtitleBlock()),
         ("heading_featured_image", HeadingFeaturedImageBlock())
-    ],
+    ], block_counts = {
+        'heading_title' : {'min_num': 1, 'max_num': 1},
+        'heading_subtitle' : {'min_num': 0, 'max_num': 1},
+        'heading_featured_image' : {'min_num': 0, 'max_num': 1},
+    },
     null = True,
     blank = True,
     help_text = "Choose blocks to be shown at the top of the page."
@@ -256,3 +262,73 @@ class FlexPageFields(models.Model):
     class Meta:
         """ Meta FlexPageFields """
         abstract = True
+
+
+class BlogListingPageFields(models.Model):
+    """Blog Listing Page field definitions"""
+
+    heading_blocks = page_heading_blocks
+
+    content_panels = [
+        MultiFieldPanel(
+            [
+                StreamFieldPanel("heading_blocks", classname=""),
+            ],
+            heading="Page Heading",
+            classname="collapsible",
+        ),
+        MultiFieldPanel(
+            [
+                HelpPanel(content="<h2>The page body consists of a list blog posts in date order, newest at the top.</h2>"),
+            ],
+            heading="Page Body",
+            classname="collapsible",
+        ),
+    ]
+
+    class Meta:
+        """ Meta BlogListingPageFields """
+        abstract = True
+
+class BlogPostPageFields(models.Model):
+    """Blog Post Page field definitions"""
+
+    heading_blocks = page_heading_blocks
+    body_blocks = page_body_blocks
+
+    enable_comments = models.BooleanField(default=True,blank=False,null=False)
+    categories = ParentalManyToManyField("blog.BlogPostCategory", blank=True)
+
+    content_panels = [
+        MultiFieldPanel(
+            [
+                StreamFieldPanel("heading_blocks", classname=""),
+            ],
+            heading="Page Heading",
+            classname="collapsible",
+        ),
+        MultiFieldPanel(
+            [
+                StreamFieldPanel("body_blocks", classname=""),
+            ],
+            heading="Page Body",
+            classname="collapsible",
+        ),
+    ]
+
+    settings_panels = [
+        FieldPanel("enable_comments"),
+    ]
+
+    promote_panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel("categories", widget=forms.CheckboxSelectMultiple)
+            ],heading="Assign Categories"
+        )
+    ]
+
+    class Meta:
+        """ Meta BlogPostPageFields """
+        abstract = True
+

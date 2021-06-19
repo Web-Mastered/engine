@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'dashboard',
     'blocks',
     'flex',
+    'blog',
 
     'wagtailmenus',
     'compressor',
@@ -195,6 +196,7 @@ WAGTAILMENUS_FLAT_MENUS_HANDLE_CHOICES = (
     ('footer', 'Footer'),
 )
 
+WAGTAILMENUS_ACTIVE_ANCESTOR_CLASS = "ancestor active"
 
 sentry_sdk.init(
     dsn="https://a375b63d66cc4c0f889d45da52d4c7a3@o866366.ingest.sentry.io/5823119",

@@ -10,11 +10,9 @@
             <div class="navbar-nav ms-auto">
                 {% for item in menu_items %}
                     <a class="nav-link {{ item.active_class }}" href="{{ item.href }}">{{ item.text }}</a>
-                    {% if item.sub_menu %}
-                        {% for sub_item in item.sub_menu.items %}
-                            <a class="nav-link {{ sub_item.active_class }}" href="{{ sub_item.href }}">{{ sub_item.text }}</a>
-                        {% endfor %}
-                    {% endif %}
+                    <!-- The ancestor menu item to the active one will be marked with with a class of 'ancestor'
+                    For example, the 'Blog' page will have the ancestor class if the page is example.com/blog/page
+                    and the 'Page' will have the active class. -->
                 {% endfor %}
             </div>
         </div>

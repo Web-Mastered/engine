@@ -10,6 +10,7 @@ class HomePage(Page, HomePageFields):
 
     subpage_types = [
         'flex.FlexPage',
+        'blog.BlogListingPage',
     ]
     parent_page_type = [
         'wagtailcore.Page',
