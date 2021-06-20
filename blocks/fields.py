@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+from django.conf import settings
 
 from wagtail.admin.edit_handlers import FieldPanel, HelpPanel, StreamFieldPanel, PageChooserPanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField, StreamField, StreamBlock
@@ -297,6 +298,7 @@ class BlogPostPageFields(models.Model):
     body_blocks = page_body_blocks
 
     enable_comments = models.BooleanField(default=True,blank=False,null=False)
+
     categories = ParentalManyToManyField("blog.BlogPostCategory", blank=True)
 
     content_panels = [
@@ -316,9 +318,13 @@ class BlogPostPageFields(models.Model):
         ),
     ]
 
-    settings_panels = [
-        FieldPanel("enable_comments"),
-    ]
+    if settings.ENABLE_EXPERIMENTAL_BLOG_COMMENTING:
+        settings_panels = [
+            FieldPanel("enable_comments"),
+        ]
+    else:        
+        settings_panels = []
+
 
     promote_panels = [
         MultiFieldPanel(

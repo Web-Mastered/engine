@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
+{% load widget_tweaks comments comments_xtd %}
+{% load blog_tags %}
 
 {% block heading %}
     {% for block in self.heading_blocks %}
@@ -25,4 +27,20 @@
     <div class="w-100">
         <a href="{{ blog_listing_page.url }}" class="text-start float-start">&#8592; View all posts</a>
     </div>
+    <br>
+    <hr>
+    {% experimental_comments_status as global_comment_status %}
+    {% if self.enable_comments and global_comment_status %}
+        <div class="container-fluid mt-4 comment-form">
+            {% render_comment_form for page %}
+        </div>
+        
+        {% get_comment_count for page as comment_count %}
+        {% if comment_count %}
+            <hr>
+            <div class="container-fluid mt-4 media-list">
+                {% render_xtdcomment_tree for page %}
+            </div>
+        {% endif %}
+    {% endif %}
 {% endblock %}

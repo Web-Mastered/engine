@@ -1,4 +1,6 @@
 from django import template
+from django.conf import settings
+
 register = template.Library()
 
 title = ""
@@ -43,3 +45,8 @@ def get_subtitle():
     this_subtitle = subtitle
     subtitle = None
     return this_subtitle
+
+@register.simple_tag
+def experimental_comments_status():
+    commenting_status = settings.ENABLE_EXPERIMENTAL_BLOG_COMMENTING
+    return commenting_status

@@ -16,6 +16,8 @@ urlpatterns = [
 
     path('search/', search_views.search, name='search'),
 
+    path('comments/', include('django_comments_xtd.urls')),
+
 ]
 
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.shortcuts import render
+from django.conf import settings
 
 from blocks.fields import BlogListingPageFields, BlogPostPageFields
 
@@ -8,6 +9,11 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Page
 from wagtail.snippets.models import register_snippet
+
+from django_comments_xtd.models import XtdComment
+
+from modelcluster.fields import ParentalKey
+
 
 class BlogListingPage(RoutablePageMixin, Page, BlogListingPageFields):
     """A model for a blog listing page"""
@@ -76,6 +82,17 @@ class BlogPostPage(Page, BlogPostPageFields):
         verbose_name = "Blog Post"
         verbose_name_plural = "Blog Posts"
 
+    def get_absolute_url(self):
+        if settings.DEBUG:
+            return 'http://localhost:8000' + self.url
+        else:
+            return self.full_url
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context['blog_listing_page'] = BlogListingPage.objects.all()[0]
+        return context
+
 
 @register_snippet
 class BlogPostCategory(models.Model):
@@ -106,3 +123,19 @@ class BlogPostCategory(models.Model):
         verbose_name_plural = "Blog Post Categories"
         ordering = ["name"]
 
+
+class BlogPostComment(XtdComment):
+    page = ParentalKey(BlogPostPage, on_delete=models.CASCADE, related_name='blog_post_comments')
+
+    class Meta:
+        verbose_name = "Blog Post Comment"
+        verbose_name_plural = "Blog Post Comments"
+
+    def save(self, *args, **kwargs):
+        if self.user:
+            self.user_name = self.user.username
+        self.page = BlogPostPage.objects.get(pk=self.object_pk)
+        super(BlogPostComment, self).save(*args, **kwargs)
+
+if settings.ENABLE_EXPERIMENTAL_BLOG_COMMENTING:
+    BlogPostComment = register_snippet(BlogPostComment)

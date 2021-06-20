@@ -16,6 +16,8 @@ import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
+from urllib.parse import urlparse
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -37,6 +39,9 @@ INSTALLED_APPS = [
     'wagtailmenus',
     'compressor',
     'wagtail_color_panel',
+    'widget_tweaks',
+    'django_comments_xtd',
+    'django_comments',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -60,6 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'wagtail.contrib.modeladmin',
 ]
 
@@ -211,3 +217,15 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
+
+SITE_ID = 1
+
+ENABLE_EXPERIMENTAL_BLOG_COMMENTING = False
+
+if ENABLE_EXPERIMENTAL_BLOG_COMMENTING:
+    COMMENTS_APP = 'django_comments_xtd'
+    COMMENTS_XTD_MODEL = 'blog.models.BlogPostComment'
+    COMMENTS_XTD_MAX_THREAD_LEVEL = 16
+    COMMENTS_XTD_SALT = (b"Timendi causa est nescire. "
+                        b"Aequam memento rebus in arduis servare mentem.")
+    COMMENTS_XTD_FROM_EMAIL = "engine-noreply@" + str(urlparse(BASE_URL).netloc)
