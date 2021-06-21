@@ -59,10 +59,9 @@ class BlogListingPage(RoutablePageMixin, Page, BlogListingPageFields):
                 context['posts'] = BlogPostPage.objects.filter(categories__in=category).live().public().order_by('-first_published_at')
                 context['category'] = category.first
                 return render(request, "blog/category_post_listing_page.html", context)
-        else:
-            context['blog_listing_page'] = BlogListingPage.objects.all()[0]
-            context['categories'] = BlogPostCategory.objects.all()
-            return render(request, "blog/category_listing_page.html", context)
+        context['blog_listing_page'] = BlogListingPage.objects.all()[0]
+        context['categories'] = BlogPostCategory.objects.all()
+        return render(request, "blog/category_listing_page.html", context)
 
 
 
@@ -88,8 +87,7 @@ class BlogPostPage(Page, BlogPostPageFields):
         """Get the URL of this model (used for django-comments-xtd)"""
         if settings.DEBUG:
             return 'http://localhost:8000' + self.url
-        else:
-            return self.full_url
+        return self.full_url
 
     def get_context(self, request, *args, **kwargs):
         """Pass the blog listing page object as a context"""
