@@ -96,8 +96,8 @@ class BlogPostPage(Page, BlogPostPageFields):
 class BlogPostCategory(models.Model):
     """A category model to sort blog posts into categories"""
 
-    name = models.CharField(max_length=255, help_text="Name your category.")
-    slug = models.SlugField(allow_unicode=True, max_length=255, help_text="A slug to identify posts by this category.")
+    name = models.CharField(max_length=255, help_text="Name your category.", unique=True)
+    slug = models.SlugField(allow_unicode=True, max_length=255, help_text="A slug to identify posts by this category.", unique=True)
     image = models.ForeignKey(
         "wagtailimages.Image",
         blank=True,
