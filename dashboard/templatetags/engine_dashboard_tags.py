@@ -17,17 +17,22 @@ def get_pip_requirements():
     """
     Simple template tag function that returns all packages and version in requirements.txt.
     """
-    installed_packages = pkg_resources.working_set
-    installed_packages_list = sorted(["%s==%s" % (i.key, i.version)
-    for i in installed_packages])
-    return installed_packages_list
+    requirements_packages_list = []
+    requirements_packages = list(pkg_resources.working_set)
+    for package in requirements_packages:
+        requirements_packages_list.append(str(package.key) + " == " + str(package.version))
+    return requirements_packages_list
 
 @register.simple_tag
 def get_pip_list():
     """
     Simple template tag function that returns all packages and version installed via Pip.
     """
-    return [p.project_name + " @ " + str(p.parsed_version) for p in pkg_resources.working_set]
+    installed_packages_list = []
+    installed_packages = list(pkg_resources.working_set)
+    for package in installed_packages:
+        installed_packages_list.append(str(package.project_name) + " @ " + str(package.parsed_version))
+    return installed_packages_list
 
 @register.simple_tag
 def diagnostics_report():
