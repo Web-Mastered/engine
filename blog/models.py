@@ -55,7 +55,9 @@ class BlogListingPage(RoutablePageMixin, Page, BlogListingPageFields):
                 return render(request, "blog/error_page.html", context)
             # If there is a match with a category model...
             context['blog_listing_page'] = BlogListingPage.objects.all()[0]
-            context['posts'] = BlogPostPage.objects.filter(categories__in=category).live().public().order_by('-first_published_at')
+            context['posts'] = BlogPostPage.objects.filter(
+                categories__in=category
+                ).live().public().order_by('-first_published_at')
             context['category'] = category.first
             return render(request, "blog/category_post_listing_page.html", context)
         context['blog_listing_page'] = BlogListingPage.objects.all()[0]
