@@ -191,8 +191,7 @@ WAGTAIL_SITE_NAME = "engine"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
 
-# This is added to prevent "Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'."
-# warnings with wagtailmenus
+# This is added to prevent "auto-created primary key" warnings with wagtailmenus
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Disable Wagtail Update Checking

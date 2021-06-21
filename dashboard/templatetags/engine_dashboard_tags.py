@@ -15,7 +15,7 @@ def get_engine_version():
 @register.simple_tag
 def get_pip_requirements():
     """
-    Simple template tag function that returns all packages and version in requirements.txt.
+    Returns all packages and version stated in requirements.txt.
     """
     requirements_packages_list = []
     requirements_packages = list(pkg_resources.working_set)
@@ -26,7 +26,7 @@ def get_pip_requirements():
 @register.simple_tag
 def get_pip_list():
     """
-    Simple template tag function that returns all packages and version installed via Pip.
+    Returns list of Pip packages and their versions
     """
     installed_packages_list = []
     installed_packages = list(pkg_resources.working_set)
@@ -37,8 +37,7 @@ def get_pip_list():
 @register.simple_tag
 def diagnostics_report():
     """
-    Simple template tag function that returns get_engine_version, get_pip_requirements and 
-    get_pip_list all compiled in the form of a dictionary.
+    Returns dictionary of get_engine_version, get_pip_requirements and get_pip_list
     """
     report = {
         "engine_version": get_engine_version(),

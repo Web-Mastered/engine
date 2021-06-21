@@ -29,7 +29,6 @@ class BlogListingPage(RoutablePageMixin, Page, BlogListingPageFields):
 
     content_panels = Page.content_panels + BlogListingPageFields.content_panels
 
-    # method which passes an array of blog posts in date order into template as context below
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["posts"] = BlogPostPage.objects.live().public().order_by('-first_published_at')
@@ -43,7 +42,6 @@ class BlogListingPage(RoutablePageMixin, Page, BlogListingPageFields):
     def category_listing_page(self, request, *args, **kwargs):
         context = self.get_context(request, *args, **kwargs)
         categorySlug = request.GET.get('category')
-        # if categorySlug != None and categorySlug != "":
         if categorySlug not in (None,""):
             context = self.get_context(request, *args, **kwargs)
             category = BlogPostCategory.objects.filter(slug=categorySlug)
