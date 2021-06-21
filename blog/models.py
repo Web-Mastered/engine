@@ -48,12 +48,12 @@ class BlogListingPage(RoutablePageMixin, Page, BlogListingPageFields):
             context = self.get_context(request, *args, **kwargs)
             category = BlogPostCategory.objects.filter(slug=categorySlug)
             if len(category) != 1:
-                """If no category model matches with the query..."""
+                #If no category model matches with the query...
                 context['blog_listing_page'] = BlogListingPage.objects.all()[0]
                 context['errorTitle'] = "Category not found"
                 context['errorMessage'] = "The category that you're looking for does not exist, please double check your query."
                 return render(request, "blog/error_page.html", context)
-            """If there is a match with a category model..."""
+            # If there is a match with a category model...
             context['blog_listing_page'] = BlogListingPage.objects.all()[0]
             context['posts'] = BlogPostPage.objects.filter(categories__in=category).live().public().order_by('-first_published_at')
             context['category'] = category.first
