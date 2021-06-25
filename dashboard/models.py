@@ -1,11 +1,13 @@
 from django.db import models
+
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.admin.edit_handlers import EditHandler, FieldPanel, FieldRowPanel, HelpPanel, TabbedInterface, ObjectList
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail_color_panel.fields import ColorField
 from wagtail_color_panel.edit_handlers import NativeColorPanel
 
-# Create your models here.
+from dashboard.metrics import get_cpu, get_ram
+
 
 @register_setting
 class WebsiteSettings(BaseSetting):
@@ -73,6 +75,21 @@ class WebsiteSettings(BaseSetting):
     ])
 
 
+@register_setting(icon='site')
+class Metrics(BaseSetting):
+    """Displays system metrics such as CPU, RAM and disk utilisation"""
+    panels = [
+        HelpPanel(
+            template='engine/metrics.html',
+        )
+    ]
+
+    class Meta:
+        """ Meta Metrics """
+        verbose_name = 'Engine Metrics'
+
+
+
 @register_setting(icon='help')
 class AboutEngine(BaseSetting):
     """
@@ -81,7 +98,8 @@ class AboutEngine(BaseSetting):
     """
     panels = [
         HelpPanel(
-            template='engine/index.html',
+            template='engine/about_engine_setting.html',
+
         )
     ]
 

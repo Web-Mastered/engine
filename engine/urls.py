@@ -8,6 +8,8 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
 
+from dashboard.views import metrics
+
 urlpatterns = [
     path('django-admin/', admin.site.urls),
 
@@ -17,6 +19,8 @@ urlpatterns = [
     path('search/', search_views.search, name='search'),
 
     path('comments/', include('django_comments_xtd.urls')),
+
+    path('wm-engine-metrics/', metrics),
 
 ]
 
