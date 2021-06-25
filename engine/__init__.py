@@ -15,7 +15,7 @@ $$$$$$$$\ $$ |  $$ |\$$$$$$$ |$$ |$$ |  $$ |\$$$$$$$\
 """
 
 __title__ = 'Engine CMS'
-__version__ = '1.0.0'
+__version__ = '1.0.0-dev'
 __author__ = 'Sidharth Shanmugam'
 __company__ = 'Web Mastered'
 __license__ = ''            # Need to choose a license
