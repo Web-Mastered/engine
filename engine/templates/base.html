@@ -1,6 +1,6 @@
 {% load static wagtailuserbar %}
 {% load menu_tags %}
-{% load engine_dashboard_tags %}
+{% load engine_metrics_tags %}
 {% load wagtailimages_tags %}
 {% load compress %}
 
@@ -86,6 +86,7 @@
         </div>
 
         {# Global javascript #}
+        <script src="https://browser.sentry-cdn.com/6.7.2/bundle.tracing.min.js" integrity="sha384-wOrLFfswE3wmvwEzqgo2kc7ksrFcx4ephHugBnWW3jY8ktO8xSi5Lny58pZSpovY" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
         {% compress js %}
@@ -93,6 +94,19 @@
             {% block extra_js %}
                 {# Override this in templates to add extra javascript #}
             {% endblock %}
+            <script>
+            Sentry.init({
+                dsn: "{% get_sentry_dsn %}",
+                integrations: [new Sentry.Integrations.BrowserTracing()],
+
+                // Set tracesSampleRate to 1.0 to capture 100%
+                // of transactions for performance monitoring.
+                // We recommend adjusting this value in production
+                tracesSampleRate: 1.0,
+                release: "{% get_engine_version %}",
+                environment : "{% get_sentry_release %}",
+            });
+            </script>
         {% endcompress %}
         <footer class="footer mt-auto pt-5 pb-5">
             <div class="container-fluid">

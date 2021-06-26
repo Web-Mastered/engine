@@ -12,15 +12,25 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from urllib.parse import urlparse
+
+from django.conf import settings
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.modules import ModulesIntegration
+import environ
 
-from urllib.parse import urlparse
+from engine import VERSION
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+env = environ.Env(
+    ENABLE_EXPERIMENTAL_BLOG_COMMENTING=(bool, False),
+    WAGTAIL_ENABLE_UPDATE_CHECK=(bool, False)
+)
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -195,7 +205,7 @@ BASE_URL = 'http://example.com'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Disable Wagtail Update Checking
-WAGTAIL_ENABLE_UPDATE_CHECK = False
+WAGTAIL_ENABLE_UPDATE_CHECK = env('WAGTAIL_ENABLE_UPDATE_CHECK')
 
 WAGTAILMENUS_FLAT_MENUS_HANDLE_CHOICES = (
     ('footer', 'Footer'),
@@ -203,23 +213,9 @@ WAGTAILMENUS_FLAT_MENUS_HANDLE_CHOICES = (
 
 WAGTAILMENUS_ACTIVE_ANCESTOR_CLASS = "ancestor active"
 
-sentry_sdk.init(
-    dsn="https://a375b63d66cc4c0f889d45da52d4c7a3@o866366.ingest.sentry.io/5823119",
-    integrations=[DjangoIntegration()],
-
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    # We recommend adjusting this value in production.
-    traces_sample_rate=1.0,
-
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=True
-)
-
 SITE_ID = 1
 
-ENABLE_EXPERIMENTAL_BLOG_COMMENTING = False
+ENABLE_EXPERIMENTAL_BLOG_COMMENTING = env('ENABLE_EXPERIMENTAL_BLOG_COMMENTING')
 
 if ENABLE_EXPERIMENTAL_BLOG_COMMENTING:
     COMMENTS_APP = 'django_comments_xtd'
@@ -228,3 +224,6 @@ if ENABLE_EXPERIMENTAL_BLOG_COMMENTING:
     COMMENTS_XTD_SALT = (b"Timendi causa est nescire. "
                         b"Aequam memento rebus in arduis servare mentem.")
     COMMENTS_XTD_FROM_EMAIL = "engine-noreply@" + str(urlparse(BASE_URL).netloc)
+
+DISK_MOUNT_POINT = "/System/Volumes/Data"
+

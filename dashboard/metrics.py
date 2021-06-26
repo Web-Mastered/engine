@@ -123,3 +123,11 @@ def diagnostics_report():
         "pip_list": get_pip_list(),
     }
     return report
+
+def get_sentry_release():
+    """Gets the Sentry release name from settings.py"""
+    return settings.SENTRY_RELEASE
+
+def get_sentry_dsn():
+    """Gets the Sentry DSN from settings.py"""
+    return settings.SENTRY_DSN
