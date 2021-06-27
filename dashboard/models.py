@@ -98,8 +98,7 @@ class AboutEngine(BaseSetting):
     """
     panels = [
         HelpPanel(
-            template='engine/about_engine_setting.html',
-
+            template='engine/about.html',
         )
     ]
 

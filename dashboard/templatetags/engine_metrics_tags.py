@@ -5,6 +5,11 @@ from dashboard.metrics import get_cpu, get_ram, get_disk
 from dashboard.metrics import get_engine_version as engine_version
 from dashboard.metrics import get_sentry_release as sentry_release
 from dashboard.metrics import get_sentry_dsn as sentry_dsn
+from dashboard.metrics import get_engine_author as engine_author
+from dashboard.metrics import get_engine_company as engine_company
+from dashboard.metrics import get_engine_license as engine_license
+from dashboard.metrics import get_engine_copyright as engine_copyright
+from dashboard.metrics import get_engine_client as engine_client
 
 register = template.Library()
 
@@ -37,3 +42,29 @@ def get_sentry_release():
 def get_sentry_dsn():
     """Gets the Sentry DSN from settings.py"""
     return sentry_dsn()
+
+@register.simple_tag()
+def get_engine_author():
+    """Gets the AUTHOR attribute from __init__.py"""
+    return engine_author()
+
+@register.simple_tag()
+def get_engine_company():
+    """Gets the author's COMPANY attribute from __init__.py"""
+    # COMPANY attribute will always return Web Mastered Ltd
+    return engine_company()
+
+@register.simple_tag()
+def get_engine_license():
+    """Gets the LICENSE attribute from __init__.py"""
+    return engine_license()
+
+@register.simple_tag()
+def get_engine_copyright():
+    """Gets the COPYRIGHT attribute from __init__.py"""
+    return engine_copyright()
+
+@register.simple_tag()
+def get_engine_client():
+    """Gets the CLIENT attribute from __init__.py"""
+    return engine_client()

@@ -3,7 +3,7 @@ import psutil
 from django.utils.safestring import mark_safe
 from django.conf import settings
 
-from engine import VERSION
+from engine import VERSION, AUTHOR, COMPANY, LICENSE, COPYRIGHT, CLIENT
 
 from datetime import datetime
 import pkg_resources
@@ -131,3 +131,24 @@ def get_sentry_release():
 def get_sentry_dsn():
     """Gets the Sentry DSN from settings.py"""
     return settings.SENTRY_DSN
+
+def get_engine_author():
+    """Gets the AUTHOR attribute from __init__.py"""
+    return AUTHOR
+
+def get_engine_company():
+    """Gets the author's COMPANY attribute from __init__.py"""
+    # COMPANY attribute will always return Web Mastered Ltd
+    return COMPANY
+
+def get_engine_license():
+    """Gets the LICENSE attribute from __init__.py"""
+    return LICENSE
+
+def get_engine_copyright():
+    """Gets the COPYRIGHT attribute from __init__.py"""
+    return COPYRIGHT
+
+def get_engine_client():
+    """Gets the CLIENT attribute from __init__.py"""
+    return CLIENT
