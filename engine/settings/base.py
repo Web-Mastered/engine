@@ -28,7 +28,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 env = environ.Env(
     ENABLE_EXPERIMENTAL_BLOG_COMMENTING=(bool, False),
-    WAGTAIL_ENABLE_UPDATE_CHECK=(bool, False)
+    WAGTAIL_ENABLE_UPDATE_CHECK=(bool, False),
+    SECURE_SSL_REDIRECT=(bool,True)
 )
 environ.Env.read_env()
 
@@ -226,5 +227,5 @@ if ENABLE_EXPERIMENTAL_BLOG_COMMENTING:
                         b"Aequam memento rebus in arduis servare mentem.")
     COMMENTS_XTD_FROM_EMAIL = "engine-noreply@" + str(urlparse(BASE_URL).netloc)
 
-DISK_MOUNT_POINT = "/System/Volumes/Data"
+DISK_MOUNT_POINT = env('METRICS_DISK_MOUNT_POINT')
 

@@ -1,10 +1,16 @@
 from .base import *
 
 DEBUG = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = env('SECURE_SSL_REDIRECT')
 SECRET_KEY = env('SECRET_KEY')
 
 SENTRY_RELEASE = "production"
 SENTRY_DSN = env('SENTRY_DSN')
+
+# SECURITY WARNING: define the correct hosts in production!
+ALLOWED_HOSTS = ['*'] 
 
 sentry_sdk.init(
     dsn=SENTRY_DSN,
