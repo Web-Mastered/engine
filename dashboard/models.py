@@ -8,7 +8,6 @@ from wagtail_color_panel.edit_handlers import NativeColorPanel
 
 from dashboard.metrics import get_cpu, get_ram
 
-
 @register_setting
 class WebsiteSettings(BaseSetting):
     logo = models.ForeignKey(
