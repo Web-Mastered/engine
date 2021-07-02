@@ -205,7 +205,6 @@ WAGTAIL_SITE_NAME = "engine"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://example.com'
 BASE_URL = env('BASE_URL')
 
 # This is added to prevent "auto-created primary key" warnings with wagtailmenus
@@ -235,7 +234,6 @@ if ENABLE_EXPERIMENTAL_BLOG_COMMENTING:
 
 DISK_MOUNT_POINT = env('METRICS_DISK_MOUNT_POINT')
 
-DEFAULT_FROM_EMAIL = env('EMAIL_HOST_USER')EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
