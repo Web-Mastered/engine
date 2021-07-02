@@ -177,6 +177,17 @@ STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
 ]
 
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+
+COMPRESS_ENABLED = env('COMPRESS_ENABLED')
+COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
+COMPRESS_OFFLINE = True
+LIBSASS_OUTPUT_STYLE = 'compressed'
+LIBSASS_SOURCEMAPS = True
+LIBSASS_PRECISION = 6
+
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
 # JavaScript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
 # See https://docs.djangoproject.com/en/3.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
@@ -187,16 +198,6 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
-
-COMPRESS_ENABLED = env('COMPRESS_ENABLED')
-COMPRESS_OFFLINE = True
-LIBSASS_OUTPUT_STYLE = 'compressed'
-LIBSASS_SOURCEMAPS = True
-LIBSASS_PRECISION = 6
 
 # Wagtail settings
 
