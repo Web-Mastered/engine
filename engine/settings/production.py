@@ -10,7 +10,7 @@ SENTRY_RELEASE = "production"
 SENTRY_DSN = env('SENTRY_DSN')
 
 # SECURITY WARNING: define the correct hosts in production!
-ALLOWED_HOSTS = [env('ALLOWED_HOSTS')] 
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 sentry_sdk.init(
     dsn=SENTRY_DSN,
