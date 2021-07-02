@@ -29,7 +29,8 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 env = environ.Env(
     ENABLE_EXPERIMENTAL_BLOG_COMMENTING=(bool, False),
     WAGTAIL_ENABLE_UPDATE_CHECK=(bool, False),
-    SECURE_SSL_REDIRECT=(bool,True)
+    SECURE_SSL_REDIRECT=(bool,True),
+    ALLOWED_HOSTS=(list, [])
 )
 environ.Env.read_env()
 
