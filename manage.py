@@ -6,7 +6,7 @@ import environ
 env = environ.Env(
     PRODUCTION_ENV=(bool, False),
 )
-environ.Env.read_env()
+environ.Env.read_env(env.str('ENV_PATH', 'engine/settings/.env'))
 
 if __name__ == "__main__":
     PRODUCTION_ENV = env('PRODUCTION_ENV')
