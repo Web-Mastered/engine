@@ -183,7 +183,7 @@ COMPRESS_PRECOMPILERS = (
 
 COMPRESS_ENABLED = env('COMPRESS_ENABLED')
 COMPRESS_CSS_FILTERS = ['compressor.filters.css_default.CssAbsoluteFilter',  'compressor.filters.cssmin.CSSMinFilter']
-COMPRESS_OFFLINE = True
+COMPRESS_OFFLINE = False
 LIBSASS_OUTPUT_STYLE = 'compressed'
 LIBSASS_SOURCEMAPS = True
 LIBSASS_PRECISION = 6
