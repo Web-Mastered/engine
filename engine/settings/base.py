@@ -30,7 +30,7 @@ env = environ.Env(
     ENABLE_EXPERIMENTAL_BLOG_COMMENTING=(bool, False),
     WAGTAIL_ENABLE_UPDATE_CHECK=(bool, False),
     SECURE_SSL_REDIRECT=(bool,True),
-    COMPRESS_ENABLED=(bool, False),
+    COMPRESS_ENABLED=(bool, True),
     ALLOWED_HOSTS=(list, [])
 )
 environ.Env.read_env()
