@@ -30,6 +30,7 @@ env = environ.Env(
     ENABLE_EXPERIMENTAL_BLOG_COMMENTING=(bool, False),
     WAGTAIL_ENABLE_UPDATE_CHECK=(bool, False),
     SECURE_SSL_REDIRECT=(bool,True),
+    COMPRESS_ENABLED=(bool, False),
     ALLOWED_HOSTS=(list, [])
 )
 environ.Env.read_env()
@@ -191,6 +192,7 @@ COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
 
+COMPRESS_ENABLED = env('COMPRESS_ENABLED')
 COMPRESS_OFFLINE = True
 LIBSASS_OUTPUT_STYLE = 'compressed'
 LIBSASS_SOURCEMAPS = True
