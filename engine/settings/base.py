@@ -213,6 +213,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Disable Wagtail Update Checking
 WAGTAIL_ENABLE_UPDATE_CHECK = env('WAGTAIL_ENABLE_UPDATE_CHECK')
 
+# Prevent users from editing pages that they have locked.
+WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK = True
+
 WAGTAILMENUS_FLAT_MENUS_HANDLE_CHOICES = (
     ('footer', 'Footer'),
 )
