@@ -1,7 +1,7 @@
 {% load wagtailimages_tags %}
 
 {% image self.image format-jpeg width-500 as img %}
-{% if alignment == 'image-left' %}
+{% if self.alignment == 'image-left' %}
     <div class="row">
         <div class="col-6">
             <img src="{{ img.url }}" class="figure-img img-fluid w-100" alt="{{ alt_text }}">
