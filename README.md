@@ -1,16 +1,16 @@
 # Engine
 Engine is a custom CMS project built using Wagtail with additional modifications such as predefined page models and StreamField blocks.
 
-Speed and efficiency are the main objectives, Engine is built to be compatible with PyPy 7.3.4, which is on average 4.5x faster than the traditional CPython. The aim is to build the fastest and most lightweight project, future projects can be built on top of Engine.
+Speed and efficiency are the main objectives. The aim is to build the fastest and most lightweight project, future projects can be built on top of Engine.
 
 ## Installation
 ### Prerequisites
-Must have an installation of PyPy 7.3.4 for best compatibility, equivalent or newer Python installations can be used provided you check whether the code and dependencies are compatible. 
+Must have an installation of CPython 3.9 for best compatibility, newer Python installations can be used provided you check whether the code and dependencies are compatible. 
 
 Remember to use a virtual environment before installing packages!
 
 ```python
-pip install -r requirements.txt
+pip install -r requirements.cpython.txt
 ```
 
 ## Usage
@@ -54,4 +54,6 @@ python manage.py migrate
 The `makemigrations` command creates migration files which the `migrate` command uses to create/modify/delete tables in the database. Always run `makemigrations` before `migrate` to not run into any issues or errors.
 
 ## Roadmap
-v1.0.0 is currently being developed. Refer to the Roadmap v1.0.0 GitHub project board for details on what has to be done, what's being done and what has been done.
+- [x] v1.0.0-dev
+- [ ] Non-critical fixes to code (See v1.0.0 dev project board)
+- [ ] Production test and deploy v1.0.0
