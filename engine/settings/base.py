@@ -233,7 +233,7 @@ if ENABLE_EXPERIMENTAL_BLOG_COMMENTING:
     COMMENTS_XTD_SALT = (b"Timendi causa est nescire. "
                         b"Aequam memento rebus in arduis servare mentem.")
     # COMMENTS_XTD_FROM_EMAIL = "engine-noreply@" + str(urlparse(BASE_URL).netloc)
-    COMMENTS_XTD_FROM_EMAIL = "wm-engine@email.com"
+    COMMENTS_XTD_FROM_EMAIL = env('EMAIL_FROM_USER')
 
 DISK_MOUNT_POINT = env('METRICS_DISK_MOUNT_POINT')
 
