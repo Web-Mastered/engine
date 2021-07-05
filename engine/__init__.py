@@ -15,9 +15,9 @@ $$$$$$$$\ $$ |  $$ |\$$$$$$$ |$$ |$$ |  $$ |\$$$$$$$\
 """
 
 __title__ = 'Engine CMS'
-__version__ = '1.0.0-dev'
+__version__ = '1.0.0'
 __author__ = 'Sidharth Shanmugam'
-__company__ = 'Web Mastered Ltd'
+__company__ = 'Web Mastered Ltd.'
 __license__ = """
 Your continued use of our softwares implies your agreement to the terms and 
 conditions provided by Web Mastered Ltd, including, but not limited to the following
