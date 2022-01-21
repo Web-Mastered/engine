@@ -44,7 +44,7 @@ tablib==3.0.0
 telepath==0.1.1
 typing-extensions==3.10.0.0
 urllib3==1.26.5
-wagtail==2.13.2
+wagtail==2.15.2
 wagtail-color-panel==1.2.0
 wagtailmenus==3.0.2
 webencodings==0.5.1
